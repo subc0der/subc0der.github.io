@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subcoder — Developer Portfolio</title>
+  <meta name="description" content="Developer specializing in blockchain infrastructure, AI tooling, and creative software." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07070c;
+      --bg-card: rgba(255,255,255,0.03);
+      --bg-card-hover: rgba(255,255,255,0.055);
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(96,165,250,0.35);
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-muted: #475569;
+      --accent: #60a5fa;
+      --accent-soft: rgba(96,165,250,0.12);
+      --accent-glow: rgba(96,165,250,0.06);
+      --purple: #a78bfa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(96,165,250,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -200px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Header ── */
+    header {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 72px 28px 48px;
+    }
+
+    .hero {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      flex-shrink: 0;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .avatar:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(96,165,250,0.1);
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-text h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      background: linear-gradient(120deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      margin-bottom: 22px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 15px;
+      border-radius: 7px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      border-color: var(--border-hover);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* ── Main ── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 28px 80px;
+    }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 32px;
+    }
+
+    /* ── Filters ── */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .filter-btn {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: inherit;
+      letter-spacing: 0.01em;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(96,165,250,0.3);
+      color: var(--text-dim);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #07070c;
+      font-weight: 600;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+      gap: 14px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.22s, background 0.22s, transform 0.22s, box-shadow 0.22s;
+      animation: fadeUp 0.35s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      position: relative;
+    }
+
+    .card-name {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .card-stars {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .card-stars svg { opacity: 0.6; }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+      flex: 1;
+      position: relative;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(96,165,250,0.18);
+      text-transform: lowercase;
+    }
+
+    .tag.purple {
+      background: rgba(167,139,250,0.1);
+      color: var(--purple);
+      border-color: rgba(167,139,250,0.18);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .lang {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.74rem;
+      color: var(--text-dim);
+    }
+
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Loading / Error ── */
+    .state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 56px 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+      margin: 0 auto 14px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .state a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .state a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+
+    footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 580px) {
+      header { padding: 48px 20px 36px; }
+      .hero { flex-direction: column; gap: 18px; }
+      .hero-text h1 { font-size: 1.55rem; }
+      main { padding: 0 20px 60px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hero">
+    <img
+      src="https://avatars.githubusercontent.com/u/18121535?v=4"
+      alt="Subcoder"
+      class="avatar"
+    />
+    <div class="hero-text">
+      <h1>Subcoder</h1>
+      <!-- UPDATE THIS LINE with your own tagline -->
+      <p class="tagline">Building blockchain infrastructure, AI tooling, and creative software.</p>
+      <div class="hero-links">
+        <a href="https://github.com/subc0der" class="btn" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://subcoder.com" class="btn" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+          subcoder.com
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="divider"></div>
+
+  <div class="filters" id="filters" role="group" aria-label="Filter projects by category">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="blockchain">Blockchain</button>
+    <button class="filter-btn" data-filter="ai">AI / ML</button>
+    <button class="filter-btn" data-filter="audio">Audio</button>
+    <button class="filter-btn" data-filter="game">Game Dev</button>
+    <button class="filter-btn" data-filter="web">Web & Tools</button>
+  </div>
+
+  <div id="grid" class="grid" role="list">
+    <div class="state">
+      <div class="spinner"></div>
+      Loading projects…
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="https://github.com/subc0der" target="_blank" rel="noopener">github.com/subc0der</a>
+</footer>
+
+<script>
+  const LANG_COLORS = {
+    TypeScript:  '#3178c6',
+    JavaScript:  '#f1e05a',
+    Kotlin:      '#7f52ff',
+    Python:      '#3572A5',
+    'C++':       '#f34b7d',
+    HTML:        '#e34c26',
+    Shell:       '#89e051',
+  };
+
+  // Curated category tags — add/remove as needed
+  const REPO_META = {
+    'midnight-cloak':             { tags: ['blockchain', 'zero-knowledge'] },
+    'midnight-authenticator':     { tags: ['blockchain', 'zero-knowledge'] },
+    'cardano-companion':          { tags: ['blockchain', 'cardano'] },
+    'midnight-awesome-dapps':     { tags: ['blockchain'] },
+    'ftl-ai-hi-res-audio-player': { tags: ['ai', 'audio', 'android'] },
+    'sulo-ai':                    { tags: ['ai', 'blender'] },
+    'ue5-pmg':                    { tags: ['ai', 'game', 'audio'] },
+    'raffle-racer':               { tags: ['web'] },
+    'cyber-duck-race':            { tags: ['web', 'game'] },
+    'subcoder-cipher-matrix':     { tags: ['web', 'tools'] },
+    'Cali_Quakes':                { tags: ['tools', 'python'] },
+  };
+
+  const SKIP = new Set(['amplify-react-graphql']);
+
+  // Purple-tinted tags for variety
+  const PURPLE_TAGS = new Set(['zero-knowledge', 'blender', 'android', 'python', 'cardano']);
+
+  const FILTER_MAP = {
+    blockchain: r => hasTag(r, 'blockchain'),
+    ai:         r => hasTag(r, 'ai'),
+    audio:      r => hasTag(r, 'audio'),
+    game:       r => hasTag(r, 'game'),
+    web:        r => hasTag(r, 'web'),
+  };
+
+  let allRepos = [];
+  let activeFilter = 'all';
+
+  function hasTag(repo, tag) {
+    return (REPO_META[repo.name]?.tags || []).includes(tag);
+  }
+
+  function starSVG() {
+    return `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+  }
+
+  function renderCard(repo, index) {
+    const tags = REPO_META[repo.name]?.tags || [];
+    const delay = (index % 12) * 45;
+    const langColor = LANG_COLORS[repo.language] || '#64748b';
+
+    const tagsHtml = tags.map(t =>
+      `<span class="tag${PURPLE_TAGS.has(t) ? ' purple' : ''}">${t}</span>`
+    ).join('');
+
+    const starsHtml = repo.stargazers_count > 0
+      ? `<span class="card-stars">${starSVG()} ${repo.stargazers_count}</span>`
+      : '';
+
+    const langHtml = repo.language
+      ? `<span class="lang"><span class="lang-dot" style="background:${langColor}"></span>${repo.language}</span>`
+      : '';
+
+    const desc = repo.description
+      ? `<p class="card-desc">${repo.description}</p>`
+      : '';
+
+    return `
+      <a class="card" href="${repo.html_url}" target="_blank" rel="noopener"
+         style="animation-delay:${delay}ms" role="listitem" aria-label="${repo.name}">
+        <div class="card-header">
+          <span class="card-name">${repo.name}</span>
+          ${starsHtml}
+        </div>
+        ${desc}
+        ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+        <div class="card-footer">${langHtml}</div>
+      </a>`;
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('grid');
+    const repos = activeFilter === 'all'
+      ? allRepos
+      : allRepos.filter(FILTER_MAP[activeFilter] || (() => false));
+
+    if (!repos.length) {
+      grid.innerHTML = `<div class="state">No projects in this category.</div>`;
+      return;
+    }
+
+    grid.innerHTML = repos.map((r, i) => renderCard(r, i)).join('');
+  }
+
+  async function loadRepos() {
+    try {
+      const res = await fetch('https://api.github.com/users/subc0der/repos?sort=updated&per_page=100');
+      if (!res.ok) throw new Error('GitHub API error');
+      const data = await res.json();
+
+      allRepos = data
+        .filter(r => !r.fork && !SKIP.has(r.name))
+        .sort((a, b) => b.stargazers_count - a.stargazers_count || b.updated_at.localeCompare(a.updated_at));
+
+      renderGrid();
+    } catch {
+      document.getElementById('grid').innerHTML = `
+        <div class="state">
+          Could not load projects.<br>
+          <a href="https://github.com/subc0der" target="_blank" rel="noopener">
+            View on GitHub →
+          </a>
+        </div>`;
+    }
+  }
+
+  document.getElementById('filters').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderGrid();
+  });
+
+  loadRepos();
+</script>
+</body>
+</html>
