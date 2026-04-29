@@ -421,12 +421,7 @@
     <button class="filter-btn" data-filter="web">Web & Tools</button>
   </div>
 
-  <div id="grid" class="grid" role="list">
-    <div class="state">
-      <div class="spinner"></div>
-      Loading projects…
-    </div>
-  </div>
+  <div id="grid" class="grid" role="list"></div>
 </main>
 
 <footer>
@@ -458,8 +453,6 @@
     'subcoder-cipher-matrix':     { tags: ['web', 'tools'] },
     'Cali_Quakes':                { tags: ['tools', 'python'] },
   };
-
-  const SKIP = new Set(['amplify-react-graphql']);
 
   // Purple-tinted tags for variety
   const PURPLE_TAGS = new Set(['zero-knowledge', 'blender', 'android', 'python', 'cardano']);
@@ -531,26 +524,87 @@
     grid.innerHTML = repos.map((r, i) => renderCard(r, i)).join('');
   }
 
-  async function loadRepos() {
-    try {
-      const res = await fetch('https://api.github.com/users/subc0der/repos?sort=updated&per_page=100');
-      if (!res.ok) throw new Error('GitHub API error');
-      const data = await res.json();
-
-      allRepos = data
-        .filter(r => !r.fork && !SKIP.has(r.name))
-        .sort((a, b) => b.stargazers_count - a.stargazers_count || b.updated_at.localeCompare(a.updated_at));
-
-      renderGrid();
-    } catch {
-      document.getElementById('grid').innerHTML = `
-        <div class="state">
-          Could not load projects.<br>
-          <a href="https://github.com/subc0der" target="_blank" rel="noopener">
-            View on GitHub →
-          </a>
-        </div>`;
-    }
+  function loadRepos() {
+    allRepos = [
+      {
+        name: 'ftl-ai-hi-res-audio-player',
+        description: 'Professional audiophile Android music player with AI-enhanced features and hi-res audio support.',
+        html_url: 'https://github.com/subc0der/ftl-ai-hi-res-audio-player',
+        language: 'Kotlin',
+        stargazers_count: 4,
+      },
+      {
+        name: 'midnight-cloak',
+        description: 'Zero-knowledge identity verification infrastructure for Midnight Network.',
+        html_url: 'https://github.com/subc0der/midnight-cloak',
+        language: 'TypeScript',
+        stargazers_count: 2,
+      },
+      {
+        name: 'midnight-authenticator',
+        description: 'Zero-knowledge TOTP authenticator for the Midnight blockchain.',
+        html_url: 'https://github.com/subc0der/midnight-authenticator',
+        language: 'TypeScript',
+        stargazers_count: 2,
+      },
+      {
+        name: 'subcoder-cipher-matrix',
+        description: 'Browser-based tool for encryption, decryption, and encoding conversions.',
+        html_url: 'https://github.com/subc0der/subcoder-cipher-matrix',
+        language: 'HTML',
+        stargazers_count: 2,
+      },
+      {
+        name: 'Cali_Quakes',
+        description: 'USGS data agent that tracks and reports California earthquake activity.',
+        html_url: 'https://github.com/subc0der/Cali_Quakes',
+        language: 'Python',
+        stargazers_count: 2,
+      },
+      {
+        name: 'ue5-pmg',
+        description: 'AI-powered Procedural Music Generator plugin for Unreal Engine 5.',
+        html_url: 'https://github.com/subc0der/ue5-pmg',
+        language: 'C++',
+        stargazers_count: 1,
+      },
+      {
+        name: 'cardano-companion',
+        description: 'Cardano wallet companion — view ADA balance, native tokens, and staking rewards.',
+        html_url: 'https://github.com/subc0der/cardano-companion',
+        language: 'TypeScript',
+        stargazers_count: 1,
+      },
+      {
+        name: 'cyber-duck-race',
+        description: 'Cyberpunk-themed duck racing web app with scrolling background mechanics.',
+        html_url: 'https://github.com/subc0der/cyber-duck-race',
+        language: 'JavaScript',
+        stargazers_count: 1,
+      },
+      {
+        name: 'midnight-awesome-dapps',
+        description: 'Community-curated list of projects building on Midnight Network.',
+        html_url: 'https://github.com/subc0der/midnight-awesome-dapps',
+        language: 'Shell',
+        stargazers_count: 1,
+      },
+      {
+        name: 'sulo-ai',
+        description: 'AI-powered UV layout optimization addon for Blender.',
+        html_url: 'https://github.com/subc0der/sulo-ai',
+        language: 'Python',
+        stargazers_count: 0,
+      },
+      {
+        name: 'raffle-racer',
+        description: 'Interactive racing web app for raffles, fundraisers, and live events.',
+        html_url: 'https://github.com/subc0der/raffle-racer',
+        language: 'JavaScript',
+        stargazers_count: 0,
+      },
+    ];
+    renderGrid();
   }
 
   document.getElementById('filters').addEventListener('click', e => {
