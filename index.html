@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Subcoder — Developer Portfolio</title>
-  <meta name="description" content="Developer specializing in blockchain infrastructure, AI tooling, and creative software." />
+  <meta name="description" content="Developer specializing in blockchain infrastructure, AI tooling, and creative software. Available for freelance and contract work." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -24,6 +24,8 @@
       --accent-soft: rgba(96,165,250,0.12);
       --accent-glow: rgba(96,165,250,0.06);
       --purple: #a78bfa;
+      --green: #4ade80;
+      --green-soft: rgba(74,222,128,0.1);
     }
 
     html { scroll-behavior: smooth; }
@@ -37,7 +39,6 @@
       overflow-x: hidden;
     }
 
-    /* ambient glow */
     body::before {
       content: '';
       position: fixed;
@@ -78,8 +79,8 @@
     }
 
     .avatar {
-      width: 76px;
-      height: 76px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       border: 1.5px solid var(--border);
       flex-shrink: 0;
@@ -93,6 +94,14 @@
 
     .hero-text { flex: 1; }
 
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
     .hero-text h1 {
       font-size: 1.9rem;
       font-weight: 700;
@@ -101,20 +110,50 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 6px;
       line-height: 1.2;
     }
 
-    .tagline {
-      font-size: 0.95rem;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.73rem;
+      font-weight: 500;
+      background: var(--green-soft);
+      color: var(--green);
+      border: 1px solid rgba(74,222,128,0.2);
+      white-space: nowrap;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .bio {
+      font-size: 0.92rem;
       color: var(--text-dim);
       margin-bottom: 22px;
+      max-width: 520px;
+      line-height: 1.65;
     }
 
     .hero-links {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .btn {
@@ -141,6 +180,19 @@
       background: var(--accent-glow);
     }
 
+    .btn-cta {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #07070c;
+      font-weight: 600;
+    }
+
+    .btn-cta:hover {
+      background: #93c5fd;
+      border-color: #93c5fd;
+      color: #07070c;
+    }
+
     /* ── Main ── */
     main {
       position: relative;
@@ -150,7 +202,6 @@
       padding: 0 28px 80px;
     }
 
-    /* divider */
     .divider {
       height: 1px;
       background: var(--border);
@@ -176,7 +227,6 @@
       cursor: pointer;
       transition: all 0.18s;
       font-family: inherit;
-      letter-spacing: 0.01em;
     }
 
     .filter-btn:hover {
@@ -207,8 +257,6 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      text-decoration: none;
-      color: inherit;
       transition: border-color 0.22s, background 0.22s, transform 0.22s, box-shadow 0.22s;
       animation: fadeUp 0.35s ease both;
       position: relative;
@@ -242,13 +290,11 @@
       position: relative;
     }
 
-    .card-name {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 0.88rem;
-      font-weight: 500;
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
       color: var(--text);
       line-height: 1.3;
-      word-break: break-word;
     }
 
     .card-stars {
@@ -266,7 +312,7 @@
     .card-desc {
       font-size: 0.8rem;
       color: var(--text-dim);
-      line-height: 1.55;
+      line-height: 1.6;
       flex: 1;
       position: relative;
     }
@@ -287,7 +333,6 @@
       background: var(--accent-soft);
       color: var(--accent);
       border: 1px solid rgba(96,165,250,0.18);
-      text-transform: lowercase;
     }
 
     .tag.purple {
@@ -299,8 +344,10 @@
     .card-footer {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
       position: relative;
+      margin-top: auto;
     }
 
     .lang {
@@ -318,33 +365,43 @@
       flex-shrink: 0;
     }
 
-    /* ── Loading / Error ── */
-    .state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 56px 0;
-      color: var(--text-muted);
-      font-size: 0.88rem;
+    .card-actions {
+      display: flex;
+      gap: 6px;
     }
 
-    .spinner {
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.75s linear infinite;
-      margin: 0 auto 14px;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .state a {
-      color: var(--accent);
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 0.72rem;
+      font-weight: 500;
       text-decoration: none;
+      transition: all 0.18s;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: transparent;
+      white-space: nowrap;
     }
 
-    .state a:hover { text-decoration: underline; }
+    .card-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    .card-btn-demo {
+      border-color: rgba(96,165,250,0.25);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .card-btn-demo:hover {
+      background: rgba(96,165,250,0.2);
+      border-color: var(--accent);
+    }
 
     /* ── Footer ── */
     footer {
@@ -386,10 +443,21 @@
       class="avatar"
     />
     <div class="hero-text">
-      <h1>Subcoder</h1>
-      <!-- UPDATE THIS LINE with your own tagline -->
-      <p class="tagline">Building blockchain infrastructure, AI tooling, and creative software.</p>
+      <div class="hero-top">
+        <h1>Subcoder</h1>
+        <span class="badge">Available for work</span>
+      </div>
+      <!-- UPDATE: replace this bio with your own 1-2 sentence intro -->
+      <p class="bio">
+        I build across the stack — zero-knowledge blockchain infrastructure,
+        AI-powered tooling, and creative web and mobile apps. Open to freelance
+        projects and contract work.
+      </p>
       <div class="hero-links">
+        <!-- UPDATE: replace the email below with yours -->
+        <a href="mailto:m.khalin@gmail.com" class="btn btn-cta">
+          Get in touch
+        </a>
         <a href="https://github.com/subc0der" class="btn" target="_blank" rel="noopener">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
@@ -412,7 +480,7 @@
 <main>
   <div class="divider"></div>
 
-  <div class="filters" id="filters" role="group" aria-label="Filter projects by category">
+  <div class="filters" id="filters" role="group" aria-label="Filter projects">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="blockchain">Blockchain</button>
     <button class="filter-btn" data-filter="ai">AI / ML</button>
@@ -439,172 +507,183 @@
     Shell:       '#89e051',
   };
 
-  // Curated category tags — add/remove as needed
-  const REPO_META = {
-    'midnight-cloak':             { tags: ['blockchain', 'zero-knowledge'] },
-    'midnight-authenticator':     { tags: ['blockchain', 'zero-knowledge'] },
-    'cardano-companion':          { tags: ['blockchain', 'cardano'] },
-    'midnight-awesome-dapps':     { tags: ['blockchain'] },
-    'ftl-ai-hi-res-audio-player': { tags: ['ai', 'audio', 'android'] },
-    'sulo-ai':                    { tags: ['ai', 'blender'] },
-    'ue5-pmg':                    { tags: ['ai', 'game', 'audio'] },
-    'raffle-racer':               { tags: ['web'] },
-    'cyber-duck-race':            { tags: ['web', 'game'] },
-    'subcoder-cipher-matrix':     { tags: ['web', 'tools'] },
-    'Cali_Quakes':                { tags: ['tools', 'python'] },
-  };
-
-  // Purple-tinted tags for variety
   const PURPLE_TAGS = new Set(['zero-knowledge', 'blender', 'android', 'python', 'cardano']);
 
+  // ── Project data ─────────────────────────────────────────────────────────
+  // To add a live demo: set demo: 'https://your-url.com'
+  // To add a new project: copy a block and fill in the fields
+  const PROJECTS = [
+    {
+      title: 'FTL Hi-Res Audio Player',
+      slug:  'ftl-ai-hi-res-audio-player',
+      desc:  'Native Android music player built for audiophiles. Supports hi-res audio formats with AI-powered audio enhancement and a custom DSP pipeline.',
+      lang:  'Kotlin',
+      stars: 4,
+      tags:  ['ai', 'audio', 'android'],
+      demo:  null,
+    },
+    {
+      title: 'Midnight Cloak',
+      slug:  'midnight-cloak',
+      desc:  'Identity verification infrastructure built on zero-knowledge proofs. Lets users prove credentials without revealing underlying data, built for the Midnight blockchain.',
+      lang:  'TypeScript',
+      stars: 2,
+      tags:  ['blockchain', 'zero-knowledge'],
+      demo:  null,
+    },
+    {
+      title: 'Midnight Authenticator',
+      slug:  'midnight-authenticator',
+      desc:  'TOTP authenticator that generates time-based one-time passwords anchored to the Midnight blockchain — privacy-preserving 2FA with on-chain verification.',
+      lang:  'TypeScript',
+      stars: 2,
+      tags:  ['blockchain', 'zero-knowledge'],
+      demo:  null,
+    },
+    {
+      title: 'Cipher Matrix',
+      slug:  'subcoder-cipher-matrix',
+      desc:  'Browser-based cryptography toolkit. Encode, decode, encrypt, and convert between common formats — runs entirely client-side, nothing leaves the browser.',
+      lang:  'HTML',
+      stars: 2,
+      tags:  ['web', 'tools'],
+      demo:  null, // add your GitHub Pages URL here if deployed
+    },
+    {
+      title: 'Cali Quakes',
+      slug:  'Cali_Quakes',
+      desc:  'Python agent that polls the USGS earthquake API and surfaces real-time seismic data for California. Configurable alert thresholds and event reporting.',
+      lang:  'Python',
+      stars: 2,
+      tags:  ['web', 'tools'],
+      demo:  null,
+    },
+    {
+      title: 'UE5 Procedural Music Generator',
+      slug:  'ue5-pmg',
+      desc:  'Unreal Engine 5 plugin that generates adaptive, procedural music in real time using AI — scores dynamically to gameplay state so no two playthroughs sound the same.',
+      lang:  'C++',
+      stars: 1,
+      tags:  ['ai', 'game', 'audio'],
+      demo:  null,
+    },
+    {
+      title: 'Cardano Companion',
+      slug:  'cardano-companion',
+      desc:  'Cardano wallet dashboard built with TypeScript. Displays ADA balance, native token holdings, and live staking reward data from the Cardano blockchain.',
+      lang:  'TypeScript',
+      stars: 1,
+      tags:  ['blockchain', 'cardano'],
+      demo:  null,
+    },
+    {
+      title: 'Cyber Duck Race',
+      slug:  'cyber-duck-race',
+      desc:  'Cyberpunk-themed browser racing game with parallax scrolling, animated sprites, and real-time race logic. Built in vanilla JS — zero dependencies.',
+      lang:  'JavaScript',
+      stars: 1,
+      tags:  ['web', 'game'],
+      demo:  null, // add live URL if deployed
+    },
+    {
+      title: 'Midnight Awesome dApps',
+      slug:  'midnight-awesome-dapps',
+      desc:  'Curated directory of dApps and developer tools building on the Midnight Network — maintained as a community resource for the ecosystem.',
+      lang:  'Shell',
+      stars: 1,
+      tags:  ['blockchain'],
+      demo:  null,
+    },
+    {
+      title: 'SULO AI',
+      slug:  'sulo-ai',
+      desc:  'Blender addon that uses AI to automatically optimize UV layouts — reduces seams and packing waste, cutting manual UV unwrapping time significantly.',
+      lang:  'Python',
+      stars: 0,
+      tags:  ['ai', 'blender'],
+      demo:  null,
+    },
+    {
+      title: 'Raffle Racer',
+      slug:  'raffle-racer',
+      desc:  'Live event racing web app for fundraisers and raffles. Participants race in real time on screen — built for engagement at in-person events.',
+      lang:  'JavaScript',
+      stars: 0,
+      tags:  ['web', 'game'],
+      demo:  null, // add live URL if deployed
+    },
+  ];
+
+  // ── Filter logic ──────────────────────────────────────────────────────────
   const FILTER_MAP = {
-    blockchain: r => hasTag(r, 'blockchain'),
-    ai:         r => hasTag(r, 'ai'),
-    audio:      r => hasTag(r, 'audio'),
-    game:       r => hasTag(r, 'game'),
-    web:        r => hasTag(r, 'web'),
+    blockchain: p => p.tags.includes('blockchain'),
+    ai:         p => p.tags.includes('ai'),
+    audio:      p => p.tags.includes('audio'),
+    game:       p => p.tags.includes('game'),
+    web:        p => p.tags.includes('web'),
   };
 
-  let allRepos = [];
   let activeFilter = 'all';
 
-  function hasTag(repo, tag) {
-    return (REPO_META[repo.name]?.tags || []).includes(tag);
-  }
-
+  // ── Render ────────────────────────────────────────────────────────────────
   function starSVG() {
     return `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
   }
 
-  function renderCard(repo, index) {
-    const tags = REPO_META[repo.name]?.tags || [];
+  function externalSVG() {
+    return `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+  }
+
+  function renderCard(project, index) {
     const delay = (index % 12) * 45;
-    const langColor = LANG_COLORS[repo.language] || '#64748b';
+    const langColor = LANG_COLORS[project.lang] || '#64748b';
+    const ghUrl = `https://github.com/subc0der/${project.slug}`;
 
-    const tagsHtml = tags.map(t =>
-      `<span class="tag${PURPLE_TAGS.has(t) ? ' purple' : ''}">${t}</span>`
-    ).join('');
+    const tagsHtml = project.tags
+      .map(t => `<span class="tag${PURPLE_TAGS.has(t) ? ' purple' : ''}">${t}</span>`)
+      .join('');
 
-    const starsHtml = repo.stargazers_count > 0
-      ? `<span class="card-stars">${starSVG()} ${repo.stargazers_count}</span>`
+    const starsHtml = project.stars > 0
+      ? `<span class="card-stars">${starSVG()} ${project.stars}</span>`
       : '';
 
-    const langHtml = repo.language
-      ? `<span class="lang"><span class="lang-dot" style="background:${langColor}"></span>${repo.language}</span>`
-      : '';
-
-    const desc = repo.description
-      ? `<p class="card-desc">${repo.description}</p>`
+    const demoBtn = project.demo
+      ? `<a class="card-btn card-btn-demo" href="${project.demo}" target="_blank" rel="noopener">Demo ${externalSVG()}</a>`
       : '';
 
     return `
-      <a class="card" href="${repo.html_url}" target="_blank" rel="noopener"
-         style="animation-delay:${delay}ms" role="listitem" aria-label="${repo.name}">
+      <div class="card" style="animation-delay:${delay}ms" role="listitem">
         <div class="card-header">
-          <span class="card-name">${repo.name}</span>
+          <span class="card-title">${project.title}</span>
           ${starsHtml}
         </div>
-        ${desc}
-        ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
-        <div class="card-footer">${langHtml}</div>
-      </a>`;
+        <p class="card-desc">${project.desc}</p>
+        <div class="card-tags">${tagsHtml}</div>
+        <div class="card-footer">
+          <span class="lang">
+            <span class="lang-dot" style="background:${langColor}"></span>
+            ${project.lang}
+          </span>
+          <div class="card-actions">
+            ${demoBtn}
+            <a class="card-btn" href="${ghUrl}" target="_blank" rel="noopener">GitHub ${externalSVG()}</a>
+          </div>
+        </div>
+      </div>`;
   }
 
   function renderGrid() {
     const grid = document.getElementById('grid');
-    const repos = activeFilter === 'all'
-      ? allRepos
-      : allRepos.filter(FILTER_MAP[activeFilter] || (() => false));
+    const projects = activeFilter === 'all'
+      ? PROJECTS
+      : PROJECTS.filter(FILTER_MAP[activeFilter] || (() => false));
 
-    if (!repos.length) {
-      grid.innerHTML = `<div class="state">No projects in this category.</div>`;
+    if (!projects.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--text-muted)">No projects in this category.</div>`;
       return;
     }
 
-    grid.innerHTML = repos.map((r, i) => renderCard(r, i)).join('');
-  }
-
-  function loadRepos() {
-    allRepos = [
-      {
-        name: 'ftl-ai-hi-res-audio-player',
-        description: 'Professional audiophile Android music player with AI-enhanced features and hi-res audio support.',
-        html_url: 'https://github.com/subc0der/ftl-ai-hi-res-audio-player',
-        language: 'Kotlin',
-        stargazers_count: 4,
-      },
-      {
-        name: 'midnight-cloak',
-        description: 'Zero-knowledge identity verification infrastructure for Midnight Network.',
-        html_url: 'https://github.com/subc0der/midnight-cloak',
-        language: 'TypeScript',
-        stargazers_count: 2,
-      },
-      {
-        name: 'midnight-authenticator',
-        description: 'Zero-knowledge TOTP authenticator for the Midnight blockchain.',
-        html_url: 'https://github.com/subc0der/midnight-authenticator',
-        language: 'TypeScript',
-        stargazers_count: 2,
-      },
-      {
-        name: 'subcoder-cipher-matrix',
-        description: 'Browser-based tool for encryption, decryption, and encoding conversions.',
-        html_url: 'https://github.com/subc0der/subcoder-cipher-matrix',
-        language: 'HTML',
-        stargazers_count: 2,
-      },
-      {
-        name: 'Cali_Quakes',
-        description: 'USGS data agent that tracks and reports California earthquake activity.',
-        html_url: 'https://github.com/subc0der/Cali_Quakes',
-        language: 'Python',
-        stargazers_count: 2,
-      },
-      {
-        name: 'ue5-pmg',
-        description: 'AI-powered Procedural Music Generator plugin for Unreal Engine 5.',
-        html_url: 'https://github.com/subc0der/ue5-pmg',
-        language: 'C++',
-        stargazers_count: 1,
-      },
-      {
-        name: 'cardano-companion',
-        description: 'Cardano wallet companion — view ADA balance, native tokens, and staking rewards.',
-        html_url: 'https://github.com/subc0der/cardano-companion',
-        language: 'TypeScript',
-        stargazers_count: 1,
-      },
-      {
-        name: 'cyber-duck-race',
-        description: 'Cyberpunk-themed duck racing web app with scrolling background mechanics.',
-        html_url: 'https://github.com/subc0der/cyber-duck-race',
-        language: 'JavaScript',
-        stargazers_count: 1,
-      },
-      {
-        name: 'midnight-awesome-dapps',
-        description: 'Community-curated list of projects building on Midnight Network.',
-        html_url: 'https://github.com/subc0der/midnight-awesome-dapps',
-        language: 'Shell',
-        stargazers_count: 1,
-      },
-      {
-        name: 'sulo-ai',
-        description: 'AI-powered UV layout optimization addon for Blender.',
-        html_url: 'https://github.com/subc0der/sulo-ai',
-        language: 'Python',
-        stargazers_count: 0,
-      },
-      {
-        name: 'raffle-racer',
-        description: 'Interactive racing web app for raffles, fundraisers, and live events.',
-        html_url: 'https://github.com/subc0der/raffle-racer',
-        language: 'JavaScript',
-        stargazers_count: 0,
-      },
-    ];
-    renderGrid();
+    grid.innerHTML = projects.map((p, i) => renderCard(p, i)).join('');
   }
 
   document.getElementById('filters').addEventListener('click', e => {
@@ -616,7 +695,7 @@
     renderGrid();
   });
 
-  loadRepos();
+  renderGrid();
 </script>
 </body>
 </html>
